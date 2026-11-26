@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finca Los Guaduales · Dos Refugios</title>
+  <meta name="description" content="Finca Los Guaduales: casa campestre en tierra caliente con piscina, kiosko y río. Hasta 20 huéspedes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/finca.css">
+</head>
+<body class="finca-page theme-guaduales">
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__label">Ver</span></div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header" id="header">
+    <a href="../index.html" class="logo"><span class="logo__mark">◐</span> Dos <em>Refugios</em></a>
+    <nav class="nav" id="nav">
+      <a href="#la-finca">La finca</a>
+      <a href="#galeria">Galería</a>
+      <a href="#tarifas">Tarifas</a>
+      <a href="el-mirador.html">El Mirador</a>
+    </nav>
+    <a href="#reservar" class="btn btn--small btn--light header__cta">Reservar</a>
+    <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="f-hero">
+      <div class="f-hero__bg" style="--img: url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=2000&q=80')"></div>
+      <div class="f-hero__content">
+        <a href="../index.html" class="back-link">← Volver al inicio</a>
+        <p class="eyebrow">Finca 02 · Tierra caliente · 29°C</p>
+        <h1>Los <em>Guaduales</em></h1>
+        <p class="f-hero__lead">Sol todo el día, piscina rodeada de palmas y un kiosko de guadua donde las celebraciones se alargan hasta la madrugada.</p>
+        <div class="f-hero__actions">
+          <a href="#reservar" class="btn btn--light">Reservar fechas <span class="arrow">→</span></a>
+          <a href="#galeria" class="btn btn--ghost">Ver galería</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="facts">
+      <div class="fact"><span class="fact__num">20</span><span class="fact__label">Huéspedes</span></div>
+      <div class="fact"><span class="fact__num">7</span><span class="fact__label">Habitaciones</span></div>
+      <div class="fact"><span class="fact__num">6</span><span class="fact__label">Baños</span></div>
+      <div class="fact"><span class="fact__num">29°</span><span class="fact__label">Clima promedio</span></div>
+      <div class="fact"><span class="fact__num">2 h</span><span class="fact__label">Desde la ciudad</span></div>
+    </div>
+
+    <!-- ============ SOBRE LA FINCA ============ -->
+    <section class="f-about section" id="la-finca">
+      <div class="f-about__text" data-reveal>
+        <p class="eyebrow">La finca</p>
+        <h2>Hecha para <em>celebrar juntos</em></h2>
+        <p>Los Guaduales es una casa campestre de corredores amplios, techos altos y hamacas en cada rincón, rodeada de tres hectáreas de jardines, árboles frutales y un bosque de guadua junto al río.</p>
+        <p>La piscina con zona infantil, el jacuzzi, la cancha múltiple y el kiosko con BBQ la convierten en el lugar perfecto para cumpleaños, reuniones familiares y paseos de amigos.</p>
+        <p class="f-about__sign">— Ideal para grupos grandes y familias con niños.</p>
+      </div>
+      <div class="f-about__images" data-reveal>
+        <div class="img img--a" style="--img: url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="img img--b" style="--img: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=80')"></div>
+        <div class="f-about__stamp"><span><strong>+400</strong>celebraciones</span></div>
+      </div>
+    </section>
+
+    <!-- ============ GALERÍA ============ -->
+    <section class="f-gallery section" id="galeria">
+      <div class="section__head">
+        <p class="eyebrow" data-reveal>Galería</p>
+        <h2 class="section__title" data-reveal>Días de <em>sol y agua</em></h2>
+      </div>
+      <div class="gallery" data-reveal>
+        <button class="gallery__item gallery__item--wide gallery__item--tall" data-cursor="Ampliar"
+          style="--img: url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=75')"
+          data-full="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=2000&q=85"
+          data-caption="La piscina al atardecer"><span>Piscina</span></button>
+        <button class="gallery__item gallery__item--tall" data-cursor="Ampliar"
+          style="--img: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=75')"
+          data-full="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=85"
+          data-caption="Fachada principal"><span>La casa</span></button>
+        <button class="gallery__item" data-cursor="Ampliar"
+          style="--img: url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=75')"
+          data-full="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=2000&q=85"
+          data-caption="Habitación con aire acondicionado"><span>Habitaciones</span></button>
+        <button class="gallery__item" data-cursor="Ampliar"
+          style="--img: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=75')"
+          data-full="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=2000&q=85"
+          data-caption="Zona húmeda"><span>Zona húmeda</span></button>
+        <button class="gallery__item gallery__item--wide" data-cursor="Ampliar"
+          style="--img: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=75')"
+          data-full="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=2000&q=85"
+          data-caption="Atardecer sobre los potreros"><span>Atardeceres</span></button>
+        <button class="gallery__item gallery__item--wide" data-cursor="Ampliar"
+          style="--img: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=75')"
+          data-full="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=2000&q=85"
+          data-caption="Bosque de guadua junto al río"><span>Bosque de guadua</span></button>
+      </div>
+    </section>
+
+    <!-- ============ COMODIDADES ============ -->
+    <section class="section" id="comodidades">
+      <div class="section__head">
+        <p class="eyebrow" data-reveal>Comodidades</p>
+        <h2 class="section__title" data-reveal>Diversión para <em>todas las edades</em></h2>
+      </div>
+      <div class="amenities" data-reveal>
+        <div class="amenity"><span class="amenity__icon">🏊</span><div><h3>Piscina + zona niños</h3><p>Limpieza diaria y sillas asoleadoras.</p></div></div>
+        <div class="amenity"><span class="amenity__icon">🛁</span><div><h3>Jacuzzi</h3><p>Para 8 personas, junto a la piscina.</p></div></div>
+        <div class="amenity"><span class="amenity__icon">🛖</span><div><h3>Kiosko de guadua</h3><p>BBQ, mesa para 24 y sonido.</p></div></div>
+        <div class="amenity"><span class="amenity__icon">⚽</span><div><h3>Cancha múltiple</h3><p>Fútbol, voleibol y baloncesto.</p></div></div>
+        <div class="amenity"><span class="amenity__icon">❄️</span><div><h3>Aire acondicionado</h3><p>En todas las habitaciones.</p></div></div>
+        <div class="amenity"><span class="amenity__icon">🌊</span><div><h3>Acceso al río</h3><p>Charco natural a 5 min caminando.</p></div></div>
+        <div class="amenity"><span class="amenity__icon">📶</span><div><h3>Wi-Fi</h3><p>En casa principal y kiosko.</p></div></div>
+        <div class="amenity"><span class="amenity__icon">🚗</span><div><h3>Parqueadero</h3><p>Espacio para 8 vehículos.</p></div></div>
+      </div>
+    </section>
+
+    <!-- ============ TARIFAS ============ -->
+    <section class="f-rates section" id="tarifas">
+      <div class="section__head">
+        <p class="eyebrow" data-reveal>Tarifas</p>
+        <h2 class="section__title" data-reveal>Precios <em>claros</em>, sin sorpresas</h2>
+      </div>
+      <div class="rates">
+        <div class="rate" data-reveal>
+          <h3>Entre semana</h3>
+          <p class="rate__price">$1.200.000</p>
+          <span class="rate__unit">por noche · dom a jue</span>
+          <ul><li>Hasta 20 personas</li><li>Aseo incluido</li><li>Mínimo 1 noche</li></ul>
+        </div>
+        <div class="rate rate--featured" data-reveal>
+          <h3>Fin de semana</h3>
+          <p class="rate__price">$1.500.000</p>
+          <span class="rate__unit">por noche · vie y sáb</span>
+          <ul><li>Hasta 20 personas</li><li>Aseo + leña para BBQ</li><li>Mínimo 2 noches</li></ul>
+        </div>
+        <div class="rate" data-reveal>
+          <h3>Festivos y temporada</h3>
+          <p class="rate__price">$1.800.000</p>
+          <span class="rate__unit">por noche · puentes, dic y Semana Santa</span>
+          <ul><li>Hasta 20 personas</li><li>Aseo + leña para BBQ</li><li>Mínimo 3 noches</li></ul>
+        </div>
+      </div>
+      <p class="rates__note" data-reveal>* Precios de ejemplo en pesos colombianos. Se solicita un depósito del 50 % para confirmar la reserva. Check-in 2:00 p. m. · Check-out 12:00 m.</p>
+    </section>
+
+    <!-- ============ UBICACIÓN ============ -->
+    <section class="f-location section" id="ubicacion">
+      <div class="f-location__text" data-reveal>
+        <p class="eyebrow">Ubicación</p>
+        <h2 class="section__title">Tierra caliente, <em>a la vuelta</em></h2>
+        <p>Carretera pavimentada hasta la portada de la finca. Enviamos la ubicación exacta y recomendaciones de ruta al confirmar.</p>
+        <ul class="route">
+          <li><strong>Ciudad</strong><span>Salida por la autopista hacia el valle</span></li>
+          <li><strong>Peaje y pueblo · 1 h 30 min</strong><span>Supermercado, licorera y restaurantes</span></li>
+          <li><strong>Los Guaduales · 2 h</strong><span>Km 12 vía al río, portada de guadua</span></li>
+        </ul>
+      </div>
+      <div class="map" data-reveal>
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="400" height="300" fill="#ecd9b9"/>
+          <path d="M0 180 C90 160 140 200 220 190 S340 150 400 165" fill="none" stroke="#9cc2c4" stroke-width="18" stroke-linecap="round"/>
+          <path d="M40 0 C90 80 150 120 200 150 S260 210 220 300" fill="none" stroke="#fbf7f0" stroke-width="6" stroke-linecap="round"/>
+          <path d="M40 0 C90 80 150 120 200 150 S260 210 220 300" fill="none" stroke="#c4603a" stroke-width="2" stroke-dasharray="6 8"/>
+          <circle cx="340" cy="50" r="28" fill="#e0a84a" opacity=".8"/>
+          <g fill="#a9b68f"><circle cx="90" cy="240" r="18"/><circle cx="115" cy="255" r="14"/><circle cx="300" cy="240" r="20"/><circle cx="330" cy="225" r="14"/></g>
+        </svg>
+        <span class="map__pin">📍 Los Guaduales</span>
+      </div>
+    </section>
+
+    <!-- ============ RESERVA ============ -->
+    <section class="booking section" id="reservar">
+      <div class="booking__info" data-reveal>
+        <p class="eyebrow">Reserva directa</p>
+        <h2 class="section__title">Reserva <em>Los Guaduales</em></h2>
+        <p>Elige tus fechas y te confirmamos disponibilidad por WhatsApp. Respuesta en minutos.</p>
+        <ul class="contact-list">
+          <li><span>⏰</span> Check-in 2:00 p. m. · Check-out 12:00 m.</li>
+          <li><span>💳</span> Depósito del 50 % para confirmar</li>
+          <li><span>📞</span> +57 300 123 4567</li>
+        </ul>
+      </div>
+      <form class="form" id="bookingForm" data-finca="Los Guaduales" data-reveal novalidate>
+        <label>Nombre
+          <input type="text" name="nombre" placeholder="Tu nombre" required>
+        </label>
+        <div class="form__row">
+          <label>Llegada <input type="date" name="llegada" required></label>
+          <label>Salida <input type="date" name="salida" required></label>
+        </div>
+        <label>Huéspedes
+          <input type="number" name="huespedes" min="1" max="20" value="8" required>
+        </label>
+        <p class="form__summary" id="formSummary"></p>
+        <button type="submit" class="btn btn--accent btn--full">Consultar por WhatsApp</button>
+        <p class="form__error" id="formError" role="alert"></p>
+      </form>
+    </section>
+
+    <!-- ============ SIGUIENTE FINCA ============ -->
+    <a href="el-mirador.html" class="next-finca" data-cursor="Ir" style="--next-fallback: linear-gradient(160deg, #6f7d5c, #2f3a26)">
+      <div class="next-finca__bg" style="--img: url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=2000&q=80')"></div>
+      <div class="next-finca__content">
+        <p class="eyebrow">¿Prefieres el frío?</p>
+        <h2>El <em>Mirador</em></h2>
+        <p>Chimenea, niebla y silencio de montaña para hasta 14 personas.</p>
+        <span class="next-finca__circle">→</span>
+      </div>
+    </a>
+  </main>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Galería ampliada">
+    <button class="lightbox__btn lightbox__close" aria-label="Cerrar">✕</button>
+    <button class="lightbox__btn lightbox__prev" aria-label="Anterior">←</button>
+    <div>
+      <div class="lightbox__img"></div>
+      <p class="lightbox__caption"></p>
+    </div>
+    <button class="lightbox__btn lightbox__next" aria-label="Siguiente">→</button>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <p class="footer__big">Dos <em>Refugios</em></p>
+    <div class="footer__cols">
+      <div><h4>Fincas</h4><a href="el-mirador.html">El Mirador</a><a href="los-guaduales.html">Los Guaduales</a></div>
+      <div><h4>Portal</h4><a href="../index.html">Inicio</a><a href="../index.html#experiencias">Experiencias</a></div>
+      <div><h4>Contacto</h4><a href="#reservar">Reservar</a><a href="mailto:hola@dosrefugios.co">hola@dosrefugios.co</a></div>
+    </div>
+    <p class="footer__copy">© <span id="year"></span> Dos Refugios · Hecho con calidez</p>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/finca.js"></script>
+</body>
+</html>
