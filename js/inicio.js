@@ -57,6 +57,13 @@ function renderCards() {
 function fillDetail(finca) {
   applyBackground(detail, finca);
 
+  // La Primavera usa su propia vista (js/primavera.js); las demás, la genérica
+  const especial = finca.plantilla === 'primavera' && typeof Primavera !== 'undefined';
+  $('detailHero').hidden = especial;
+  document.querySelector('.detail__body').hidden = especial;
+  if (especial) Primavera.mount(finca, { detailEl: detail, scrollEl: scroller });
+  else if (typeof Primavera !== 'undefined') Primavera.hide();
+
   $('detailTag').textContent = finca.etiqueta;
   $('detailTitle').textContent = finca.nombre;
   $('detailLema').textContent = finca.lema;
@@ -145,6 +152,7 @@ function openFinca(finca, card) {
   onTransitionEnd(detail, () => {
     detail.classList.add('is-ready');
     lockScroll(true);
+    if (typeof Primavera !== 'undefined') Primavera.start();
     $('detailClose').focus();
     history.pushState({ finca: finca.id }, '', `#${finca.id}`);
     animating = false;
@@ -156,6 +164,7 @@ function closeFinca({ fromHistory = false } = {}) {
   animating = true;
 
   detail.classList.remove('is-ready');
+  if (typeof Primavera !== 'undefined') Primavera.unmount();
   scroller.scrollTo({ top: 0 });
   lockScroll(false);
 
@@ -174,16 +183,22 @@ function closeFinca({ fromHistory = false } = {}) {
 
 /* ---------- 4. Eventos ---------- */
 $('detailClose').addEventListener('click', () => closeFinca());
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeFinca(); });
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  // Si hay un modal o visor abierto dentro de La Primavera, se cierra eso primero
+  if (typeof Primavera !== 'undefined' && Primavera.onEscape()) return;
+  closeFinca();
+});
 // Botón "atrás" del navegador / celular cierra la finca
 window.addEventListener('popstate', () => closeFinca({ fromHistory: true }));
 
 /* ---------- Inicio ---------- */
 renderCards();
 
-$('footWhatsapp').href = waLink('¡Hola! Quiero información sobre las fincas.');
-$('footMail').href = `mailto:${SITIO.correo}`;
-$('year').textContent = new Date().getFullYear();
+// (opcionales: solo si existen en el HTML)
+if ($('footWhatsapp')) $('footWhatsapp').href = waLink('¡Hola! Quiero información sobre las fincas.');
+if ($('footMail')) $('footMail').href = `mailto:${SITIO.correo}`;
+if ($('year')) $('year').textContent = new Date().getFullYear();
 
 // Si se entra con #mirador o #guaduales en la URL, abre esa finca
 const inicial = FINCAS.find((f) => `#${f.id}` === location.hash);
