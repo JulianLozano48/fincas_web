@@ -2,7 +2,7 @@
    DOS REFUGIOS · Inicio
    1. Genera las cards desde FINCAS (fincas-data.js)
    2. Al hacer clic, la card se expande a pantalla completa
-      y muestra la información de la finca.
+      y muestra la vista de la finca (js/vista-finca.js).
    ========================================================= */
 
 const cardsWrap = document.getElementById('cards');
@@ -11,9 +11,8 @@ const scroller = document.getElementById('detailScroll');
 const $ = (id) => document.getElementById(id);
 
 let activeCard = null;
+let vistaActiva = null; // vista de la finca abierta
 let animating = false;
-
-const waLink = (texto) => `https://wa.me/${SITIO.whatsapp}?text=${encodeURIComponent(texto)}`;
 
 /* Convierte una ruta ('img/f1.jpg') en url() con dirección completa.
    Necesario porque, al pasar por una variable CSS, una ruta relativa se
@@ -26,7 +25,6 @@ function applyBackground(el, finca, img = finca.fondo) {
   el.style.setProperty('--pos', finca.posicion || 'center');
   el.style.setProperty('--dark', finca.oscurecer ?? 0.3);
   el.style.setProperty('--color', finca.color);
-  el.style.setProperty('--accent', finca.color);
 }
 
 /* ---------- 1. Cards ---------- */
@@ -53,57 +51,16 @@ function renderCards() {
   });
 }
 
-/* ---------- 2. Contenido de la vista expandida ---------- */
+/* ---------- 2. Vista de la finca ---------- */
+// Cada finca usa la vista de VISTAS[finca.plantilla] (js/vista-finca.js)
 function fillDetail(finca) {
   applyBackground(detail, finca);
+  detail.setAttribute('aria-label', finca.nombre);
 
-  // La Primavera usa su propia vista (js/primavera.js); las demás, la genérica
-  const especial = finca.plantilla === 'primavera' && typeof Primavera !== 'undefined';
-  $('detailHero').hidden = especial;
-  document.querySelector('.detail__body').hidden = especial;
-  if (especial) Primavera.mount(finca, { detailEl: detail, scrollEl: scroller });
-  else if (typeof Primavera !== 'undefined') Primavera.hide();
-
-  $('detailTag').textContent = finca.etiqueta;
-  $('detailTitle').textContent = finca.nombre;
-  $('detailLema').textContent = finca.lema;
-  $('detailPlace').textContent = finca.ubicacion;
-  $('detailDesc').textContent = finca.descripcion;
-
-  $('detailFacts').innerHTML = finca.datos
-    .map((d) => `<li><strong>${d.valor}</strong><span>${d.etiqueta}</span></li>`)
-    .join('');
-
-  $('detailAmenities').innerHTML = finca.comodidades.map((c) => `<li>${c}</li>`).join('');
-
-  $('detailPrices').innerHTML = finca.precios
-    .map((p) => `<li><span>${p.temporada}</span><strong>${p.valor}</strong><span>${p.nota}</span></li>`)
-    .join('');
-
-  // Miniaturas: al hacer clic cambian la foto de portada
-  const hero = $('detailHero');
-  hero.style.removeProperty('--img');
-  const thumbs = $('detailThumbs');
-  thumbs.innerHTML = '';
-  finca.galeria.forEach((src, i) => {
-    const t = document.createElement('button');
-    t.type = 'button';
-    t.className = 'thumb' + (i === 0 ? ' is-active' : '');
-    t.style.setProperty('--img', cssUrl(src));
-    t.setAttribute('aria-label', `Foto ${i + 1} de ${finca.nombre}`);
-    t.addEventListener('click', () => {
-      hero.style.setProperty('--img', cssUrl(src));
-      thumbs.querySelectorAll('.thumb').forEach((x) => x.classList.toggle('is-active', x === t));
-      scroller.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    thumbs.appendChild(t);
-  });
-
-  $('detailWhatsapp').href = waLink(`¡Hola! Quiero información para reservar la finca ${finca.nombre}.`);
-
-  const page = $('detailPage');
-  page.hidden = !finca.pagina;
-  if (finca.pagina) page.href = finca.pagina;
+  const vista = VISTAS[finca.plantilla];
+  Object.values(VISTAS).forEach((v) => { if (v !== vista) v.hide(); });
+  vista.mount(finca, { detailEl: detail, scrollEl: scroller });
+  vistaActiva = vista;
 }
 
 /* ---------- 3. Animación de expandir / contraer ---------- */
@@ -152,7 +109,7 @@ function openFinca(finca, card) {
   onTransitionEnd(detail, () => {
     detail.classList.add('is-ready');
     lockScroll(true);
-    if (typeof Primavera !== 'undefined') Primavera.start();
+    vistaActiva?.start();
     $('detailClose').focus();
     history.pushState({ finca: finca.id }, '', `#${finca.id}`);
     animating = false;
@@ -164,7 +121,7 @@ function closeFinca({ fromHistory = false } = {}) {
   animating = true;
 
   detail.classList.remove('is-ready');
-  if (typeof Primavera !== 'undefined') Primavera.unmount();
+  vistaActiva?.unmount();
   scroller.scrollTo({ top: 0 });
   lockScroll(false);
 
@@ -185,8 +142,8 @@ function closeFinca({ fromHistory = false } = {}) {
 $('detailClose').addEventListener('click', () => closeFinca());
 document.addEventListener('keydown', (e) => {
   if (e.key !== 'Escape') return;
-  // Si hay un modal o visor abierto dentro de La Primavera, se cierra eso primero
-  if (typeof Primavera !== 'undefined' && Primavera.onEscape()) return;
+  // Si hay un modal o visor abierto dentro de la vista, se cierra eso primero
+  if (vistaActiva?.onEscape()) return;
   closeFinca();
 });
 // Botón "atrás" del navegador / celular cierra la finca
@@ -195,12 +152,7 @@ window.addEventListener('popstate', () => closeFinca({ fromHistory: true }));
 /* ---------- Inicio ---------- */
 renderCards();
 
-// (opcionales: solo si existen en el HTML)
-if ($('footWhatsapp')) $('footWhatsapp').href = waLink('¡Hola! Quiero información sobre las fincas.');
-if ($('footMail')) $('footMail').href = `mailto:${SITIO.correo}`;
-if ($('year')) $('year').textContent = new Date().getFullYear();
-
-// Si se entra con #mirador o #guaduales en la URL, abre esa finca
+// Si se entra con #primavera o #guaduales en la URL, abre esa finca
 const inicial = FINCAS.find((f) => `#${f.id}` === location.hash);
 if (inicial) {
   history.replaceState(null, '', location.pathname);

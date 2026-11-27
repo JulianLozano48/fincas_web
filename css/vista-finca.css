@@ -19,7 +19,13 @@
   --pv-verde: #e1e4c4;        /* fondo principal */
   --pv-verde-oscuro: #d2d8ae; /* sección Establecimiento */
   --pv-verde-claro: #e9ebd3;  /* sección Servicios */
-  --pv-verde-noche: #2a3a1a;  /* sección Contacto (verde oliva profundo) */
+  --pv-verde-noche: #2a3a1a;
+  /* tonos en formato r, g, b (se usan con rgba(var(--x), alfa)) */
+  --pv-tono: 150, 140, 60;        /* brillo de color en fondos y tarjetas */
+  --pv-tono-noche: 120, 130, 50;  /* brillo de la sección Contacto */
+  --pv-nav-rgb: 225, 228, 196;    /* fondo del menú al bajar */
+  --pv-sombra: 42, 58, 26;        /* sombras de tarjetas */
+  --pv-velo: 15, 26, 12;          /* oscurecido del hero y fondos de modal */  /* sección Contacto (verde oliva profundo) */
   --pv-textura-oscura: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .95 0 0 0 0 .75 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   /* grano fino tipo papel + líneas suaves tipo fibra vegetal */
   --pv-textura:
@@ -39,13 +45,11 @@
   background-image:
     var(--pv-textura),
     radial-gradient(70% 40% at 0% 20%, rgba(255, 246, 214, .5), transparent 70%),
-    radial-gradient(60% 40% at 100% 70%, rgba(150, 140, 60, .12), transparent 70%);
+    radial-gradient(60% 40% at 100% 70%, rgba(var(--pv-tono), .12), transparent 70%);
   color: var(--pv-tinta);
   overflow-x: clip;
 }
 .pv[hidden],
-.detail__hero[hidden],
-.detail__body[hidden],
 .pv-modal[hidden],
 .pv-viewer[hidden],
 .pv-tabs[hidden],
@@ -122,7 +126,7 @@
 }
 .pv-nav.is-solid {
   --pv-nav-h: 72px;
-  background: rgba(225, 228, 196, .86);
+  background: rgba(var(--pv-nav-rgb), .86);
   backdrop-filter: blur(18px) saturate(1.4);
   -webkit-backdrop-filter: blur(18px) saturate(1.4);
   color: var(--pv-tinta);
@@ -135,6 +139,8 @@
 }
 .pv-nav__logo img { width: 42px; height: 42px; object-fit: contain; border-radius: 50%; background: #fff; padding: 3px; }
 .pv-nav__logo em { color: var(--pv-oro); }
+/* Marca sin logo: hoja dentro de un círculo */
+.pv-nav__mark { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: #fff; color: var(--pv-musgo); font-size: 1.2rem; }
 .pv-nav.is-solid .pv-nav__logo em { color: var(--pv-musgo); }
 
 .pv-nav__links { display: flex; gap: 4px; margin-left: auto; }
@@ -185,10 +191,10 @@
 .pv-hero__slide.is-active { opacity: 1; transform: scale(1.02); }
 .pv-hero__shade {
   background:
-    linear-gradient(180deg, rgba(15, 26, 12, .55) 0%, rgba(15, 26, 12, 0) 26%),
-    linear-gradient(0deg, rgba(15, 26, 12, .88) 0%, rgba(15, 26, 12, .32) 48%, rgba(15, 26, 12, 0) 72%),
-    linear-gradient(90deg, rgba(29, 51, 23, .55), transparent 65%),
-    rgba(15, 26, 12, .16); /* velo general: un poco más opaco para que resalte el nombre */
+    linear-gradient(180deg, rgba(var(--pv-velo), .55) 0%, rgba(var(--pv-velo), 0) 26%),
+    linear-gradient(0deg, rgba(var(--pv-velo), .88) 0%, rgba(var(--pv-velo), .32) 48%, rgba(var(--pv-velo), 0) 72%),
+    linear-gradient(90deg, rgba(var(--pv-velo), .5), transparent 65%),
+    rgba(var(--pv-velo), .16); /* velo general: un poco más opaco para que resalte el nombre */
 }
 .pv-hero__content {
   position: relative;
@@ -354,6 +360,9 @@
    ========================================================= */
 .pv-services { padding-block: clamp(36px, 4.5vw, 56px); background-color: var(--pv-verde-claro); background-image: var(--pv-textura); position: relative; }
 .pv-services__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+/* Con 2 tarjetas: dos columnas y fotos más panorámicas */
+.pv-services__grid--n2 { grid-template-columns: repeat(2, 1fr); }
+.pv-services__grid--n2 .pv-service__media { aspect-ratio: 16 / 9; }
 /* Card: foto arriba + panel verde cálido con textura */
 .pv-service {
   display: flex; flex-direction: column;
@@ -365,11 +374,11 @@
   background-image:
     var(--pv-textura),
     radial-gradient(90% 60% at 0% 100%, rgba(255, 246, 214, .55), transparent 70%),
-    radial-gradient(70% 60% at 100% 0%, rgba(150, 140, 60, .18), transparent 70%);
-  box-shadow: 0 20px 40px -28px rgba(42, 58, 26, .55);
+    radial-gradient(70% 60% at 100% 0%, rgba(var(--pv-tono), .18), transparent 70%);
+  box-shadow: 0 20px 40px -28px rgba(var(--pv-sombra), .55);
   transition: transform .6s var(--pv-ease), box-shadow .6s var(--pv-ease);
 }
-.pv-service:hover { transform: translateY(-6px); box-shadow: 0 30px 50px -28px rgba(42, 58, 26, .7); }
+.pv-service:hover { transform: translateY(-6px); box-shadow: 0 30px 50px -28px rgba(var(--pv-sombra), .7); }
 .pv-service:focus-visible { outline: 3px solid var(--pv-musgo); outline-offset: 4px; }
 .pv-service__media {
   position: relative; display: block;
@@ -384,7 +393,7 @@
   position: absolute; top: 12px; left: 12px;
   padding: 5px 11px; border-radius: 99px;
   font-size: .72rem; letter-spacing: .12em; color: #fff;
-  background: rgba(27, 34, 14, .35); border: 1px solid rgba(255, 255, 255, .35); backdrop-filter: blur(8px);
+  background: rgba(var(--pv-velo), .35); border: 1px solid rgba(255, 255, 255, .35); backdrop-filter: blur(8px);
 }
 .pv-service__body { display: block; padding: 16px 12px 10px; }
 .pv-service__title { display: block; font-family: var(--serif); font-size: clamp(1.7rem, 2.4vw, 2.1rem); font-weight: 300; letter-spacing: -0.02em; line-height: 1.05; }
@@ -404,7 +413,7 @@
   position: relative;
   color: #fff;
   background:
-    radial-gradient(60% 50% at 100% 0%, rgba(120, 130, 50, .4), transparent 70%),
+    radial-gradient(60% 50% at 100% 0%, rgba(var(--pv-tono-noche), .4), transparent 70%),
     radial-gradient(50% 60% at 0% 100%, rgba(213, 178, 106, .12), transparent 70%),
     var(--pv-textura-oscura),
     var(--pv-verde-noche);
@@ -412,6 +421,11 @@
 }
 .pv-contact__inner { display: grid; grid-template-columns: 1.25fr 1fr; gap: clamp(24px, 3.5vw, 48px); align-items: center; }
 .pv-contact h2 { margin-bottom: 18px; }
+/* Si solo hay una tarjeta de contacto, ocupa todo el ancho */
+.pv-contact__list li:only-child { grid-column: 1 / -1; }
+/* Contacto sin mapa: una sola columna */
+.pv-contact__inner--solo { grid-template-columns: 1fr; }
+.pv-contact__inner--solo .pv-contact__list { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
 .pv-contact h2 em { color: var(--pv-oro); }
 .pv-contact__list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
 .pv-contact__list li {
@@ -451,7 +465,7 @@
   position: fixed; inset: 0; z-index: 60;
   display: grid; place-items: center;      /* siempre centrado en la pantalla */
   padding: clamp(14px, 3vw, 32px);
-  background: rgba(27, 34, 14, .5);
+  background: rgba(var(--pv-velo), .5);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   opacity: 0;
@@ -471,9 +485,9 @@
   background-image:
     var(--pv-textura),
     radial-gradient(70% 50% at 0% 0%, rgba(255, 246, 214, .6), transparent 70%),
-    radial-gradient(60% 50% at 100% 100%, rgba(150, 140, 60, .16), transparent 70%);
+    radial-gradient(60% 50% at 100% 100%, rgba(var(--pv-tono), .16), transparent 70%);
   border: 1px solid rgba(255, 255, 255, .5);
-  box-shadow: 0 50px 100px -30px rgba(20, 26, 8, .55);
+  box-shadow: 0 50px 100px -30px rgba(var(--pv-velo), .55);
   transform: translateY(18px) scale(.96);
   transition: transform .6s var(--pv-ease);
 }
@@ -611,6 +625,32 @@
 }
 
 /* =========================================================
+   TEMA AZUL CÁLIDO (Los Guaduales: data → tema: 'azul')
+   Mismo diseño, otra paleta: azules suaves con brillo crema
+   ========================================================= */
+.pv--azul {
+  --pv-verde: #d6e2e7;        /* fondo principal */
+  --pv-verde-oscuro: #c3d5dd; /* sección Instalaciones */
+  --pv-verde-claro: #e3ecef;  /* sección Eventos */
+  --pv-verde-noche: #1b3242;  /* sección Contacto */
+  --pv-bosque: #1b3242;       /* botones oscuros, pestañas activas */
+  --pv-bosque-2: #25465c;
+  --pv-petroleo: #4f8ca3;     /* degradado de los paneles */
+  --pv-musgo: #3b6f87;        /* acentos: títulos en cursiva, etiquetas */
+  --pv-tinta: #172430;
+  --pv-tinta-suave: #4f6170;
+  --pv-tono: 70, 125, 160;
+  --pv-tono-noche: 70, 135, 165;
+  --pv-nav-rgb: 214, 226, 231;
+  --pv-sombra: 27, 50, 66;
+  --pv-velo: 10, 22, 32;
+  --pv-textura:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .1 0 0 0 0 .2 0 0 0 0 .3 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2400' height='600'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.005 .04' numOctaves='2' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .26 0 0 0 0 .38 0 0 0 .14 -.04'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+}
+.detail--azul { background: #d6e2e7; }
+
+/* =========================================================
    RESPONSIVE
    ========================================================= */
 @media (max-width: 1020px) {
@@ -639,7 +679,7 @@
 @media (max-width: 560px) {
   .pv { --pv-nav-h: 68px; }
   .pv-nav { gap: 12px; padding-right: 76px; }
-  .pv-nav__logo span { display: none; }
+  .pv-nav__logo > span:not(.pv-nav__mark) { display: none; }
   .detail--pv .detail__close { top: 10px; right: 12px; }
   .pv-hero__title { font-size: clamp(3.2rem, 17vw, 4.6rem); }
   .pv-hero__actions .pv-btn { flex: 1 1 100%; }
