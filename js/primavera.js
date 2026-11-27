@@ -108,7 +108,6 @@ const Primavera = (() => {
           <h1 class="pv-hero__title">La <em>Primavera</em></h1>
           <p class="pv-hero__lead">${D.hero.lema}</p>
           <div class="pv-hero__actions">
-            <a class="pv-btn pv-btn--light" href="${wa()}" target="_blank" rel="noopener">Reservar por WhatsApp</a>
             <button type="button" class="pv-btn pv-btn--glass" data-go="pv-services">Ver servicios</button>
           </div>
         </div>
@@ -188,8 +187,10 @@ const Primavera = (() => {
         <div class="pv-services__grid pv-wrap">
           ${D.servicios.map((s, i) => `
             <button type="button" class="pv-service" data-service="${s.id}" data-pv-reveal style="--d:${i * 0.1}s">
-              <img src="${src(s.portada)}" alt="" loading="lazy">
-              <span class="pv-service__num">${pad(i + 1)}</span>
+              <span class="pv-service__media">
+                <img src="${src(s.portada)}" alt="" loading="lazy">
+                <span class="pv-service__num">${pad(i + 1)}</span>
+              </span>
               <span class="pv-service__body">
                 <span class="pv-service__title">${s.titulo}</span>
                 <span class="pv-service__text">${s.resumen}</span>
@@ -214,7 +215,6 @@ const Primavera = (() => {
             </ul>
             <div class="pv-contact__actions">
               <a class="pv-btn pv-btn--light" href="https://www.google.com/maps/dir/?api=1&destination=${c.lat},${c.lng}" target="_blank" rel="noopener">${I.route} ¿Cómo llegar?</a>
-              <a class="pv-btn pv-btn--glass" href="${wa()}" target="_blank" rel="noopener">${I.wa} WhatsApp</a>
             </div>
           </div>
           <div class="pv-map" data-pv-reveal>
@@ -237,11 +237,16 @@ const Primavera = (() => {
             </div>
             <button type="button" class="pv-round pv-round--dark" data-close="modal" aria-label="Cerrar">${I.close}</button>
           </header>
-          <p class="pv-modal__desc" id="pvModalDesc"></p>
-          <div class="pv-tabs" id="pvModalTabs" role="tablist"></div>
-          <p class="pv-modal__label">Cuenta con</p>
-          <ul class="pv-chips" id="pvModalSpaces"></ul>
-          <div class="pv-grid" id="pvModalGrid"></div>
+          <div class="pv-modal__body">
+            <div class="pv-modal__info">
+              <p class="pv-modal__desc" id="pvModalDesc"></p>
+              <div class="pv-tabs" id="pvModalTabs" role="tablist"></div>
+              <p class="pv-modal__label">Cuenta con</p>
+              <ul class="pv-chips" id="pvModalSpaces"></ul>
+              <a class="pv-btn pv-btn--dark pv-btn--sm pv-modal__cta" id="pvModalCta" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+            </div>
+            <div class="pv-grid" id="pvModalGrid"></div>
+          </div>
         </div>
       </div>
 
@@ -324,6 +329,7 @@ const Primavera = (() => {
     if (!s) return;
     root.querySelector('#pvModalTitle').textContent = s.titulo;
     root.querySelector('#pvModalDesc').textContent = s.descripcion;
+    root.querySelector('#pvModalCta').href = wa(`Hola, quiero información sobre el servicio de ${s.titulo} en La Primavera.`);
 
     const tabs = root.querySelector('#pvModalTabs');
     if (s.pisos) {
@@ -343,7 +349,7 @@ const Primavera = (() => {
 
     const m = modal();
     m.hidden = false;
-    m.querySelector('.pv-modal__card').scrollTop = 0;
+    m.querySelectorAll('.pv-modal__card, .pv-modal__info, .pv-grid').forEach((el) => { el.scrollTop = 0; });
     requestAnimationFrame(() => m.classList.add('is-open'));
     scroller.classList.add('is-frozen');
     m.querySelector('[data-close="modal"]').focus();
